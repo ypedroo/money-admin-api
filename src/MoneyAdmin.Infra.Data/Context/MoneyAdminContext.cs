@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoneyAdmin.Domain;
+using MoneyAdmin.Domain.Models;
 
 namespace MoneyAdmin.Infra.Data
 {
@@ -14,8 +15,17 @@ namespace MoneyAdmin.Infra.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BankAccount>()
+                .Property(p => p.Name)
+                .HasColumnType("varchar(100)")
+                .HasMaxLength(100);
+            modelBuilder.Entity<Category>()
+                .Property(p => p.Name)
+                .HasColumnType("varchar(50)")
+                .HasMaxLength(50);
         }
 
         public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
